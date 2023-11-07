@@ -4,51 +4,67 @@ AWS“ü–å‚Æ‚µ‚ÄAVPC + EC2‚ğ–³—¿˜g‚Å\’z‚µ‚ÄAƒNƒ‰ƒCƒAƒ“ƒg’[––‚©‚çSSHÚ‘±‚·‚é•û–@
 
 ![VPC+EC2.png](VPC+EC2.png)
 
-
-## VPC
+## ƒlƒbƒgƒ[ƒN\’z
 
 yAWS‡@zƒlƒbƒgƒ[ƒN‚ğ\’z‚µ‚Ä‚İ‚é  
 https://zenn.dev/oreo2990/articles/bf3112bb6ccb48  
 
-### IPƒAƒhƒŒƒX
+
+### QlFIPƒAƒhƒŒƒX
 
 - VPC             :10.0.0.0/16 65,536ŒÂ‚ÌIP
 - PUBLIC  SUBNET 1:10.0.1.0/24    256ŒÂ‚ÌIP
-- PUBLIC  SUBNET 2:10.0.2.0/24    256ŒÂ‚ÌIP
-- PRIVATE SUBNET 3:10.0.3.0/24    256ŒÂ‚ÌIP
-- PRIVATE SUBNET 4:10.0.4.0/24    256ŒÂ‚ÌIP
+- PUBLIC  SUBNET 2:10.0.2.0/24    256ŒÂ‚ÌIP  ¦¡‰ñ‚Íg—p‚µ‚È‚¢
+- PRIVATE SUBNET 3:10.0.3.0/24    256ŒÂ‚ÌIP  ¦¡‰ñ‚Íg—p‚µ‚È‚¢
+- PRIVATE SUBNET 4:10.0.4.0/24    256ŒÂ‚ÌIP  ¦¡‰ñ‚Íg—p‚µ‚È‚¢
 
-### AZ
+## VPCì¬
+
+- uVPC‚Ì‚İv‚Åì¬‚·‚é
+- uIPv4 CIDRƒuƒƒbƒNv‚Í`10.0.0.0/16`
+- uIPv6 CIDRƒuƒƒbƒNv‚Í`‚È‚µ`
+- uƒeƒiƒ“ƒV[v‚Í`ƒfƒtƒHƒ‹ƒg`
+
+### QlFAZ
 
 - PUBLIC  SUBNET 1: ap-northeast-1a
-- PUBLIC  SUBNET 2: ap-northeast-1b
-- PRIVATE SUBNET 3: ap-northeast-1a
-- PRIVATE SUBNET 4: ap-northeast-1b
+- PUBLIC  SUBNET 2: ap-northeast-1b  ¦¡‰ñ‚Íg—p‚µ‚È‚¢
+- PRIVATE SUBNET 3: ap-northeast-1a  ¦¡‰ñ‚Íg—p‚µ‚È‚¢
+- PRIVATE SUBNET 4: ap-northeast-1b  ¦¡‰ñ‚Íg—p‚µ‚È‚¢
 
-### ƒ‹[ƒgƒe[ƒuƒ‹Aigw
+### ƒTƒuƒlƒbƒgì¬
+
+- ì¬‚µ‚½VPC‚ğ‘I‘ğ‚·‚é
+- AZ‚Í“K“–‚É‘I‘ğ‚·‚é
+- IPv4 VPC CIDR block‚Í`10.0.0.0/16`
+- IPv4 subnet CICR block‚Í`10.0.1.0/24`
+
+### igwAƒ‹[ƒgƒe[ƒuƒ‹‚Ìì¬
 
 - `VPC`‚Éigw‚ªƒAƒ^ƒbƒ`‚³‚ê‚Ä‚¢‚é‚±‚Æ
 - `VPC`‚Ìƒ‹[ƒgƒe[ƒuƒ‹‚Éigw‚ªİ’è‚³‚ê‚Ä‚¢‚é‚±‚Æ
 - `PUBLIC SUBNET`‚Ìƒ‹[ƒgƒe[ƒuƒ‹‚Éigw‚ªİ’è‚³‚ê‚Ä‚¢‚é‚±‚Æ
-- `PRIVATE SUBNET`‚Ìƒ‹[ƒgƒe[ƒuƒ‹‚É‚ÍAigw‚ªİ’è‚³‚ê‚Ä‚¢‚È‚¢‚±‚Æ  
+- `PRIVATE SUBNET`‚Ìƒ‹[ƒgƒe[ƒuƒ‹‚É‚ÍAigw‚ªİ’è‚³‚ê‚Ä‚¢‚È‚¢‚±‚Æ
   ¦igw=ƒCƒ“ƒ^[ƒlƒbƒgƒQ[ƒgƒEƒFƒC
 
 ### ACL
 
 ‚·‚×‚Ä‹–‰Â
 
-### ƒZƒLƒ…ƒŠƒeƒBƒOƒ‹[ƒv
+### ƒZƒLƒ…ƒŠƒeƒBƒOƒ‹[ƒv‚Ìì¬
 
-- ”z’uæƒTƒuƒlƒbƒg‚âƒT[ƒoí—Ş‚Ì’PˆÊ‚Éì¬
-- —á‚¦‚ÎAì‹Æ—p‚ÉƒCƒ“ƒoƒEƒ“ƒh‚ÅSSH‚ğ‹–‰Â‚·‚é
+- ”z’uæƒTƒuƒlƒbƒg‚âƒT[ƒoí—Ş‚Ì’PˆÊ‚Éì¬‚·‚é
+- ƒfƒtƒHƒ‹ƒg‚ÌƒCƒ“ƒoƒEƒ“ƒhİ’èi‚·‚×‚Ä‹–‰Âj‚Ííœ‚µ‚ÄA‹–‰Â‚·‚é‚×‚«ƒ|[ƒg‚Ì‚İ‚ğŠJ•ú‚·‚é
+- —á‚¦‚ÎA©‘îƒ}ƒVƒ“‚©‚çì‹Æ—p‚ÉƒCƒ“ƒoƒEƒ“ƒh‚ÅSSHi22”Ôƒ|[ƒgj‚ğ‹–‰Â‚·‚é@Ë@uƒ^ƒCƒv=SSHAƒ\[ƒX=ƒ}ƒCIPv
+- —á‚¦‚ÎA©‘îƒ}ƒVƒ“‚©‚ç“®ìŠm”F—p‚ÉƒCƒ“ƒoƒEƒ“ƒh‚Å8080”Ôƒ|[ƒg‚ğ‹–‰Â‚·‚é@Ë@uƒ^ƒCƒv=ƒJƒXƒ^ƒ€TCPAƒ|[ƒg”ÍˆÍ=8080Aƒ\[ƒX=ƒ}ƒCIPv
+- —á‚¦‚ÎAƒXƒ}ƒz‚©‚ç“®ìŠm”F—p‚ÉƒCƒ“ƒoƒEƒ“ƒh‚Å8080”Ôƒ|[ƒg‚ğ‹–‰Â‚·‚é@Ë@uƒ^ƒCƒv=ƒJƒXƒ^ƒ€TCPAƒ|[ƒg”ÍˆÍ=8080Aƒ\[ƒX=0.0.0.0/0v
 
-### \¬
+### QlF\¬
 
 - —á‚¦‚ÎAPUBLIC  SUBNET‚É‚ÍAAPI GWAALBAWEBƒT[ƒoA“¥‚İ‘ä
 - —á‚¦‚ÎAPRIVATE SUBNET‚É‚ÍADBAEC2“à•”ƒT[ƒoiAPƒT[ƒoAƒoƒbƒ`ƒT[ƒojAECSiƒT[ƒrƒXAƒ^ƒXƒNj
 
-
-## EC2
+## EC2‚Ìì¬
 
 yAWSzEC2ƒCƒ“ƒXƒ^ƒ“ƒX‚Ìì¬•û–@‰ğàIƒT[ƒo[‚ğì¬‚µ‚ÄÚ‘±‚µ‚Ä‚İ‚é  
 https://engineer-ninaritai.com/aws-ec2-make/  
@@ -56,10 +72,11 @@ https://engineer-ninaritai.com/aws-ec2-make/
 - VPC‚ğ‘I‘ğ
 - SUBNET‚ğ‘I‘ğ
 - ƒZƒLƒ…ƒŠƒeƒBƒOƒ‹[ƒv‚ğ‘I‘ğ
-- OS
+- OS‚ÍAmazonLinux‚ğ‘I‘ğ
+- ƒ}ƒVƒ“ƒCƒ[ƒW‚Í–³—¿˜g‚Ì‘ÎÛ‚ğ‘I‘ğ
 - ƒCƒ“ƒXƒ^ƒ“ƒXƒ^ƒCƒv ¦1”NŠÔ–³—¿˜g
 - ƒXƒgƒŒ[ƒW@ ¦1”NŠÔ–³—¿˜g
-- ƒL[ƒyƒA
+- ƒL[ƒyƒA‚ğV‹Kì¬@¦ˆê“x‚µ‚©ƒ_ƒEƒ“ƒ[ƒh‚Å‚«‚È‚¢‚½‚ß•´¸‚ÍNGB•´¸‚µ‚½‚ç•Ê‚Éì¬B
 
 Ú‘±•û–@  
 ```
@@ -92,7 +109,7 @@ cd web-css
 - ƒZƒLƒ…ƒŠƒeƒBƒOƒ‹[ƒv‚ÍAPUBLICŒü‚¯‚ÅSSH‚ğ‹–‰ÂBƒCƒ“ƒ^[ƒlƒbƒg‚©‚çƒAƒNƒZƒX‚ª‚ ‚é‚½‚ß‘—MŒ³IP‚Í‚Å‚«‚é‚¾‚¯ŒÀ’è‚·‚éB
 - ƒAƒNƒZƒX•û–@‚ÍA—á‚¦‚Î©‘îƒ}ƒVƒ“‚©‚çSSH‚·‚éB
 
-### PRIVATE SUBNET‚Ö”z’u
+### QlFPRIVATE SUBNET‚Ö”z’u
 
 - OS‚ÍA`Amazon Linux 2`
 - ƒCƒ“ƒXƒ^ƒ“ƒXƒ^ƒCƒv‚ÍAt2.micro
@@ -116,7 +133,7 @@ PUBLIC‘¤EC2 > ssh -i key.pem privateIPƒAƒhƒŒƒXiPRIVATEŒ^EC2j
 ```
 
 
-### ƒRƒXƒgA–³—¿˜g
+### QlFƒRƒXƒgA–³—¿˜g
 
 
 - ƒlƒbƒgƒ[ƒN
@@ -131,7 +148,7 @@ PUBLIC‘¤EC2 > ssh -i key.pem privateIPƒAƒhƒŒƒXiPRIVATEŒ^EC2j
   - –³—¿F’ÊMi“¯ˆêAZ“àj
   - `—L—¿`F’ÊMiˆÙ‚È‚éAZŠÔj
 - EC2
-  - –³‚µFPublic IP
+  - —L—¿FPublic IPv4
   - `—L—¿`FElastic IP
   - –³—¿˜gFEC2ƒCƒ“ƒXƒ^ƒ“ƒX
   - –³—¿˜gFELBiƒXƒgƒŒ[ƒWj
@@ -160,7 +177,7 @@ PUBLIC‘¤EC2 > ssh -i key.pem privateIPƒAƒhƒŒƒXiPRIVATEŒ^EC2j
   - `—L—¿`FSecrets Manager
 
 
-### PRIVATE SUBNET‚ğg‚¤‚È‚çA`NATƒQ[ƒgƒEƒFƒC`or`VPCƒGƒ“ƒhƒ|ƒCƒ“ƒg`‚ª•K—v
+### QlFPRIVATE SUBNET‚ğg‚¤‚È‚çA`NATƒQ[ƒgƒEƒFƒC`or`VPCƒGƒ“ƒhƒ|ƒCƒ“ƒg`‚ª•K—v
 
 ‚»‚Ìƒgƒ‰ƒtƒBƒbƒNANATƒQ[ƒgƒEƒFƒC‚ğ’Ê‚·•K—v‚ ‚è‚Ü‚·‚©H“KØ‚ÈŒo˜H‚Å•s—v‚Èƒf[ƒ^ˆ——¿‹à‚ÍíŒ¸‚µ‚Ü‚µ‚å‚¤  
 https://dev.classmethod.jp/articles/reduce-unnecessary-costs-for-nat-gateway/  
@@ -173,20 +190,4 @@ https://blog.not75743.com/post/ecs_private/
 
 - VPCƒGƒ“ƒhƒ|ƒCƒ“ƒg–³‚µFPRIVATE SUBNET‚É”z’u‚³‚ê‚½EC2‚©‚çƒCƒ“ƒ^[ƒlƒbƒgƒAƒNƒZƒX‚Å‚«‚È‚¢B`yum update`‚à‚Å‚«‚È‚¢BECR‚©‚çpull‚Å‚«‚È‚¢BS3‚àCloud Watch‚àƒ_ƒB
 - VPCƒGƒ“ƒhƒ|ƒCƒ“ƒg—L‚èFPRIVATE SUBNET‚É”z’u‚³‚ê‚½EC2‚©‚çƒCƒ“ƒ^[ƒlƒbƒgƒAƒNƒZƒX‚Å‚«‚È‚¢B`yum update`‚à‚Å‚«‚È‚¢BECRAS3ACloud Watch‚Íg‚¦‚é‚æ‚¤‚É‚È‚éB
-
-
-### ALB
-
-
-
-python3 -m http.server
-
-
-
-
-
-
-
-
-
 
