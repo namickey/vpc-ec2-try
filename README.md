@@ -80,24 +80,29 @@ https://engineer-ninaritai.com/aws-ec2-make/
 
 接続方法  
 ```
+EC2インスタンスの「パブリック IPv4 アドレス」を確認し、以下コマンドを実行する
 ssh -i key.pem ec2-user@IPアドレス
 ```
 
-何らかのアプリ起動方法
+何らかのアプリの起動確認
 ```
-sudo yum install git
-sudo yum install java-11-amazon-corretto.x86_64
-git clone https://github.com/namickey/spring-boot-mybatis-docker.git
-cd spring-boot-mybatis-docker
-cd web-css
-./mvnw spring-boot:run
+sudo yum install -y git
+sudo yum install -y java-17-amazon-corretto-headless.x86_64
+git clone https://github.com/namickey/spring-boot3-try.git
+cd spring-boot3-try
+bash ./mvnw spring-boot:run
 
 ブラウザからアクセス
 `http://パブリックIP:8080/`
 ```
 
+### 使用後は停止、削除
 
-### PUBLIC SUBNETへ配置
+- EC2インスタンスを終了する
+- ネットワーク関連を削除する
+
+
+### 参考：PUBLIC SUBNETへ配置
 
 - OSは、`Amazon Linux 2`
 - インスタンスタイプは、t2.micro
