@@ -130,103 +130,112 @@ bash ./mvnw spring-boot:run
 パブリックIPは、EC2インスタンスのダッシュボードから確認すること
 
 
-## 使用後は停止、削除
+## 動作確認後は、EC2インスタンス停止、VPC削除を行う
 
 - EC2インスタンスを終了する
-- ネットワーク関連を削除する
+- 作成したネットワーク関連を全て削除する
 
+## やってみよう
 
-### 参考：PUBLIC SUBNETへ配置
+1. AWSアカウントを作成する　※メールアドレスとクレジットカードが必要
+1. 本手順に従って、VPC及びEC2インスタンスの作成を行い、アプリケーションを起動する
+1. EC2インスタンス終了し、VPCを削除する
 
-- OSは、`Amazon Linux 2`
-- インスタンスタイプは、t2.micro
-- VPCは、1つ固定
-- サブネットは、`PUBLIC SUBNET`の1 or 2
-- Public IPを付与する
-- Elastic IPは付与しなくてよい
-- ストレージは8GB
-- セキュリティグループは、PUBLIC向けでSSHを許可。インターネットからアクセスがあるため送信元IPはできるだけ限定する。
-- アクセス方法は、例えば自宅マシンからSSHする。
+> [!TIP]
+> ## 例：PUBLIC SUBNETへ作成するEC2インスタンス
+> 
+> - OSは、`Amazon Linux 2`
+> - インスタンスタイプは、t2.micro
+> - VPCは、1つ固定
+> - サブネットは、`PUBLIC SUBNET`の1 or 2 ※サブネットが使用するルートテーブルにigwが設定済み
+> - Public IPを付与する
+> - Elastic IPは付与しなくてよい
+> - ストレージは8GB
+> - セキュリティグループは、PUBLIC向けでSSHを許可。インターネットからアクセスがあるため送信元IPはできるだけ限定する。
+> - アクセス方法は、例えば自宅マシンからSSHする。
+> 
+> ## 例：PRIVATE SUBNETへ作成するEC2インスタンス
+> 
+> - OSは、`Amazon Linux 2`
+> - インスタンスタイプは、t2.micro
+> - VPCは、1つ固定
+> - サブネットは、`PRIVATE SUBNET`の1 or 2 ※サブネットが使用するルートテーブルにigwは設定しない
+> - Public IPは無し
+> - Elastic IPは無し
+> - ストレージは8GB
+> - セキュリティグループは、PRIVATE向けでSSHを許可。送信元はPUBLICのセキュリティグループを指定。
+> - アクセス方法は、例えば、まず自宅マシンからPUBLIC SUBNETのEC2へSSHして、次にそのEC2内からPRIVATE SUBNETのEC2へSSHする。  
+>   ※PUBLIC側EC2を`踏み台`と呼ぶ
+> 
+> ## 外部から踏み台を経由したPRIVATE SUBNET内のEC2インスタンスへのSSH接続方法  
+> ```
+> PUBインスタンスへPRIインスタンス用のkey.pemを転送する
+> 自宅マシン > scp -i pub-key.pem pri-key.pem ec2-user@publicIPアドレス（PUBLIC側EC2）:~/
+> 
+> PUBインスタンスへSSH接続する
+> 自宅マシン > ssh -i pub-key.pem ec2-user@IPアドレス（PUBLIC側EC2）
+> 
+> PUBインスタンス内で、転送したPRIインスタンス用のkeyのパーティションを変更する
+> PUBLIC側EC2 > chmod 400 pri-key.pem
+> 
+> PUBインスタンス内から、PRIインスタンスへSSH接続する
+> PUBLIC側EC2 > ssh -i key.pem privateIPアドレス（PRIVATE型EC2）
+> ```
 
-### 参考：PRIVATE SUBNETへ配置
+> ## 参考：AWSの無料枠の抜粋
+> 
+> - ネットワーク
+>   - 無し：VPC
+>   - 無し：SUBNET
+>   - 無し：ルートテーブル
+>   - 無し：インターネットゲートウェイ
+>   - 無し：ACL
+>   - 無し：セキュリティグループ
+>   - 無料：通信（外⇒AWS）
+>   - 無料枠：通信（AWS⇒外）
+>   - 無料：通信（同一AZ内）
+>   - `有料`：通信（異なるAZ間）
+> - EC2
+>   - 有料：Public IPv4
+>   - `有料`：Elastic IP
+>   - 無料枠：EC2インスタンス
+>   - 無料枠：ELB（ストレージ）
+> 
+> - WEB API
+>   - 無料枠：API Gateway
+> - CloudWatch
+>   - 無料枠：CloudWatch Logs
+> - ストレージ
+>   - 無料枠：S3
+> - データベース
+>   - 無料枠：RDS
+>   - `有料`：Aurora
+> - コンテナ
+>   - `有料`：ECS, Fargate
+>   - 無料枠：ECR
+> - ネットワーク
+>   - 無料枠：ALB
+>   - `有料`：NATゲートウェイ
+>   - `有料`：ECR VPCエンドポイント
+>   - `有料`：CloudWatch VPCエンドポイント
+>   - 無料：S3 VPCエンドポイント
+>   - 無料：ACM
+>   - `有料`：ROUTE53
+> - その他
+>   - `有料`：Secrets Manager
 
-- OSは、`Amazon Linux 2`
-- インスタンスタイプは、t2.micro
-- VPCは、1つ固定
-- サブネットは、`PRIVATE SUBNET`の1 or 2
-- Public IPは無し
-- Elastic IPは無し
-- ストレージは8GB
-- セキュリティグループは、PRIVATE向けでSSHを許可。送信元はPUBLICのセキュリティグループを指定。
-- アクセス方法は、例えば、まず自宅マシンからPUBLIC SUBNETのEC2へSSHして、次にそのEC2内からPRIVATE SUBNETのEC2へSSHする。  
-  ※PUBLIC側EC2を`踏み台`と呼ぶ
-
-
-接続方法  
-```
-scp -i key.pem key.pem ec2-user@publicIPアドレス（PUBLIC側EC2）:~/
-ssh -i key.pem ec2-user@IPアドレス（PUBLIC側EC2）
-
-PUBLIC側EC2 > chmod 400 key.pem
-PUBLIC側EC2 > ssh -i key.pem privateIPアドレス（PRIVATE型EC2）
-```
-
-
-### 参考：コスト、無料枠
-
-
-- ネットワーク
-  - 無し：VPC
-  - 無し：SUBNET
-  - 無し：ルートテーブル
-  - 無し：インターネットゲートウェイ
-  - 無し：ACL
-  - 無し：セキュリティグループ
-  - 無料：通信（外⇒AWS）
-  - 無料枠：通信（AWS⇒外）
-  - 無料：通信（同一AZ内）
-  - `有料`：通信（異なるAZ間）
-- EC2
-  - 有料：Public IPv4
-  - `有料`：Elastic IP
-  - 無料枠：EC2インスタンス
-  - 無料枠：ELB（ストレージ）
-
-- WEB API
-  - 無料枠：API Gateway
-- CloudWatch
-  - 無料枠：CloudWatch Logs
-- ストレージ
-  - 無料枠：S3
-- データベース
-  - 無料枠：RDS
-  - `有料`：Aurora
-- コンテナ
-  - `有料`：ECS, Fargate
-  - 無料枠：ECR
-- ネットワーク
-  - 無料枠：ALB
-  - `有料`：NATゲートウェイ
-  - `有料`：ECR VPCエンドポイント
-  - `有料`：CloudWatch VPCエンドポイント
-  - 無料：S3 VPCエンドポイント
-  - 無料：ACM
-  - `有料`：ROUTE53
-- その他
-  - `有料`：Secrets Manager
-
-
-### 参考：PRIVATE SUBNETを使うなら、`NATゲートウェイ`or`VPCエンドポイント`が必要
-
-そのトラフィック、NATゲートウェイを通す必要ありますか？適切な経路で不要なデータ処理料金は削減しましょう  
-https://dev.classmethod.jp/articles/reduce-unnecessary-costs-for-nat-gateway/  
-
-ECS+fargate+プライベートサブネットでコンテナを立ててアクセスする  
-https://blog.not75743.com/post/ecs_private/  
-
-- NATゲートウェイ無し：PRIVATE SUBNETに配置されたEC2からインターネットアクセスできない。`yum update`もできない。ECRからpullできない。S3もCloud Watchもダメ。
-- NATゲートウェイ有り：PRIVATE SUBNETに配置されたEC2からインターネットアクセスできる。有料で高い。
-
-- VPCエンドポイント無し：PRIVATE SUBNETに配置されたEC2からインターネットアクセスできない。`yum update`もできない。ECRからpullできない。S3もCloud Watchもダメ。
-- VPCエンドポイント有り：PRIVATE SUBNETに配置されたEC2からインターネットアクセスできない。`yum update`もできない。ECR、S3、Cloud Watchは使えるようになる。
+> [!NOTE]
+> ## 参考：PRIVATE SUBNETを使うなら、`NATゲートウェイ`or`VPCエンドポイント`が必要
+> 
+> そのトラフィック、NATゲートウェイを通す必要ありますか？適切な経路で不要なデータ処理料金は削減しましょう  
+> https://dev.classmethod.jp/articles/reduce-unnecessary-costs-for-nat-gateway/  
+> 
+> ECS+fargate+プライベートサブネットでコンテナを立ててアクセスする  
+> https://blog.not75743.com/post/ecs_private/  
+> 
+> - NATゲートウェイ無し：PRIVATE SUBNETに配置されたEC2からインターネットアクセスできない。`yum update`もできない。ECRからpullできない。S3もCloud Watchもダメ。
+> - NATゲートウェイ有り：PRIVATE SUBNETに配置されたEC2からインターネットアクセスできる。有料で高い。
+> 
+> - VPCエンドポイント無し：PRIVATE SUBNETに配置されたEC2からインターネットアクセスできない。`yum update`もできない。ECRからpullできない。S3もCloud Watchもダメ。
+> - VPCエンドポイント有り：PRIVATE SUBNETに配置されたEC2からインターネットアクセスできない。`yum update`もできない。> ECR、S3、Cloud Watchは使えるようになる。
 
