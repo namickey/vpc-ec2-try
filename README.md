@@ -182,6 +182,7 @@ bash ./mvnw spring-boot:run
 > PUBLIC側EC2 > ssh -i key.pem privateIPアドレス（PRIVATE型EC2）
 > ```
 
+> [!NOTE]
 > ## 参考：AWSの無料枠の抜粋
 > 
 > - ネットワーク
@@ -223,6 +224,12 @@ bash ./mvnw spring-boot:run
 >   - `有料`：ROUTE53
 > - その他
 >   - `有料`：Secrets Manager
+
+> [!NOTE]
+> 2024年2月1日以降、AWSのパブリックIPv4に料金が発生する  
+> https://zenn.dev/not75743/scraps/7c2117d86dfe37  
+> EC2 Instance Connectを使用してプライベートなEC2へ接続する  
+> https://zenn.dev/not75743/articles/c139dc1e99f790  
 
 > [!NOTE]
 > ## 参考：PRIVATE SUBNETを使うなら、`NATゲートウェイ`or`VPCエンドポイント`が必要
