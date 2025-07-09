@@ -137,10 +137,10 @@ ssh -i key.pem ec2-user@パブリックIPアドレス
 
 ```
 sudo yum install -y git
-sudo yum install -y java-17-amazon-corretto-headless.x86_64
+sudo yum install -y java-21-amazon-corretto-headless.x86_64
 git clone https://github.com/namickey/spring-boot3-try.git
 cd spring-boot3-try
-bash ./mvnw spring-boot:run
+./mvnw spring-boot:run
 ```
 
 ## ブラウザからアクセス
