@@ -7,13 +7,13 @@ AWS入門として、VPC + EC2を無料枠で構築して、クライアント�
 ## 参考サイト
 事前に参考サイトを読んでおくと理解しやすい
 > [!NOTE]
-> アカウント登録の流れ
+> アカウント登録の流れ  
 > https://aws.amazon.com/jp/register-flow/  
 > 
-> IAM作成
+> IAM作成  
 > https://qiita.com/shihandai/items/899c2ab8119783492349  
 > 
-> EC2
+> EC2  
 > https://zenn.dev/mi_01_24fu/articles/aws-ec2-2024_08_07  
 > https://qiita.com/Yasushi-Mo/items/c87fa189db431d9e6f22  
 > https://liginc.co.jp/651742  
