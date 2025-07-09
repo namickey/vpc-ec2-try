@@ -4,6 +4,20 @@ AWS入門として、VPC + EC2を無料枠で構築して、クライアント�
 
 ![VPC+EC2.png](VPC+EC2.png)
 
+## 参考サイト
+事前に参考サイトを読んでおくと理解しやすい
+> [!NOTE]
+> アカウント登録の流れ
+> https://aws.amazon.com/jp/register-flow/  
+> 
+> IAM作成
+> https://qiita.com/shihandai/items/899c2ab8119783492349  
+> 
+> EC2
+> https://zenn.dev/mi_01_24fu/articles/aws-ec2-2024_08_07  
+> https://qiita.com/Yasushi-Mo/items/c87fa189db431d9e6f22  
+> https://liginc.co.jp/651742  
+
 ## ネットワーク構築の流れ
 
 以下を参考にして、ネットワークの構築を進めていく
@@ -61,6 +75,11 @@ https://zenn.dev/oreo2990/articles/bf3112bb6ccb48
 > [!TIP]
 > - igwが設定されているルートテーブルを使用するサブネットを`PUBLIC SUBNET`と呼ぶ
 > - 別途作成したルートテーブルでigwが設定されていないルートテーブルを使用するサブネットを`PRIVATE SUBNET`と呼ぶ
+
+## ルートテーブルのサブネットへの関連付け
+
+- 作成したサブネットを開き、作成したルートテーブルを関連付ける。
+  - デフォルトのルートテーブルが設定されているため、関連付けの変更が必要。
 
 ## ACL
 
