@@ -1,4 +1,4 @@
-# AWS
+# 【AWS】 VPC + EC2 構築
 
 AWS入門として、VPC + EC2を無料枠で構築して、クライアント端末からSSH接続する方法。
 
@@ -269,3 +269,43 @@ cd spring-boot3-try
 > - VPCエンドポイント無し：PRIVATE SUBNETに配置されたEC2からインターネットアクセスできない。`yum update`もできない。ECRからpullできない。S3もCloud Watchもダメ。
 > - VPCエンドポイント有り：PRIVATE SUBNETに配置されたEC2からインターネットアクセスできない。`yum update`もできない。> ECR、S3、Cloud Watchは使えるようになる。
 
+
+# 【AWS】Spring-boot + ELB + Elasticache Redis for session store
+
+![elb-cache.png](elb-cache2.png)
+
+## redis session store
+
+pom.xml
+```xml
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-data-redis</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.session</groupId>
+			<artifactId>spring-session-data-redis</artifactId>
+		</dependency>
+```
+
+application-prod.properties
+```properties
+spring.session.store-type=redis
+spring.data.redis.host=localhost
+spring.data.redis.port=6379
+```
+
+build at `prod` profile
+```sh
+export spring_data_redis_host=`<elb host name>`
+./mvnw spring-boot:run -Dspring-boot.run.profiles=prod
+```
+
+## localhost redis in docker
+```
+docker run -d --name myredis -p 6379:6379 redis
+docker exec -it myredis bash
+
+redis-cli
+keys *
+```
