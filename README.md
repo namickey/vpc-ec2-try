@@ -257,6 +257,9 @@ cd spring-boot3-try
 > [!NOTE]
 > ## 参考：PRIVATE SUBNETを使うなら、`NATゲートウェイ`or`VPCエンドポイント`が必要
 > 
+> EC2】プライベートサブネットでyumコマンドを通すために「S3エンドポイント」を設定する  
+> https://soypocket.com/it/ec2-yum-privatesubnet-s3endpoint/  
+> 
 > そのトラフィック、NATゲートウェイを通す必要ありますか？適切な経路で不要なデータ処理料金は削減しましょう  
 > https://dev.classmethod.jp/articles/reduce-unnecessary-costs-for-nat-gateway/  
 > 
@@ -288,16 +291,46 @@ pom.xml
 		</dependency>
 ```
 
+application.properties
+```properties
+spring.datasource.driver-class-name=org.postgresql.Driver
+spring.datasource.url=jdbc:postgresql://localhost:5432/postgres
+spring.datasource.username=postgres
+spring.datasource.password=postgres
+```
+
 application-prod.properties
 ```properties
 spring.session.store-type=redis
 spring.data.redis.host=localhost
 spring.data.redis.port=6379
+spring.data.redis.timeout=5000
+```
+
+create ec2
+```sh
+#!/bin/bash
+# jdk21 install
+yum -y install java-21-amazon-corretto-headless.x86_64
+# git install
+yum -y install git
+# clone
+cd /home/ec2-user
+sudo -u ec2-user git clone https://github.com/namickey/spring-boot3-train.git
+# cd
+cd /home/ec2-user/spring-boot3-train
+# checkout aws branch
+sudo -u ec2-user git checkout aws
+# chmod
+chmod 755 mvnw
+# spring-boot:run
+sudo -u ec2-user nohup ./mvnw spring-boot:run &
 ```
 
 build at `prod` profile
 ```sh
-export spring_data_redis_host=`<elb host name>`
+export spring_data_redis_host=
+export spring_datasource_url=jdbc:postgresql://:5432/postgres
 ./mvnw spring-boot:run -Dspring-boot.run.profiles=prod
 ```
 
@@ -308,4 +341,9 @@ docker exec -it myredis bash
 
 redis-cli
 keys *
+```
+
+## localhost postgres in docker
+```
+docker run --name postgresql -p 5432:5432 -e POSTGRES_PASSWORD=postgres -d postgres
 ```
