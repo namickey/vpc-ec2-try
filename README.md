@@ -347,3 +347,42 @@ keys *
 ```
 docker run --name postgresql -p 5432:5432 -e POSTGRES_PASSWORD=postgres -d postgres
 ```
+
+## Redis
+
+> [!NOTE]
+> 
+> 
+> SpringセッションでセッションをRedisへ保存する  
+> https://scrapbox.io/yuizho-tech/Spring%E3%82%BB%E3%83%83%E3%82%B7%E3%83%A7%E3%83%B3%E3%81%A7%E3%82%BB%E3%83%83%E3%82%B7%E3%83%A7%E3%83%B3%E3%82%92Redis%E3%81%B8%E4%BF%9D%E5%AD%98%E3%81%99%E3%82%8B  
+> 
+> Amazon ElastiCache for Redis のハンズオンをやってみた!  
+> https://zenn.dev/rescuenow/articles/41ad9d369a74ca  
+
+
+## Domain + SSL証明書
+
+> [!NOTE]
+> 
+> AWS + お名前.com でSSL化してみた  
+> https://qiita.com/toshi_machine/items/b3fc8bd25cfca040bf31  
+> 
+> 徹底図解！お名前.comで取得したDNSをAWS Route53/Cloudfrontで管理するまでの手順  
+> https://deep.tacoskingdom.com/blog/12  
+> 
+> お名前ドットコムで取得したドメインを利用してhttps環境を構築する(AWS)  
+> https://zenn.dev/add9/scraps/5de937f883e0d7  
+> 
+> お名前ドットコムの独自ドメイン名でAWS ACMを使ってSSL証明書を取得する  
+> https://www.beex-inc.com/blog/20231214_onamae_awsacm  
+> 
+> 証明書をALBに紐づけてHTTPSで接続する  
+> https://www.beex-inc.com/blog/20231215_alb_https  
+
+
+## HTTPS + ELB
+
+> [!NOTE]
+> 
+> Spring Bootプロキシ環境でHTTPS化に失敗？`forward-headers-strategy`のNATIVEとFRAMEWORK、本当に正しい選び方  
+> https://openillumi.com/spring-boot-forward-headers-strategy-guide/  
