@@ -275,7 +275,7 @@ cd spring-boot3-try
 
 # 【AWS】Spring-boot + ELB + Elasticache Redis for session store
 
-![elb-cache.png](elb-cache2.png)
+![elb-cache.png](elb-cache.png)
 
 ## redis session store
 
